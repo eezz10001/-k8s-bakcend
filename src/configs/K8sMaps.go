@@ -20,3 +20,8 @@ func(this *K8sMaps) InitDepMap() *services.DeploymentMap {
 func(this *K8sMaps) InitPodMap() *services.PodMapStruct {
 	return &services.PodMapStruct{}
 }
+
+
+func(this *K8sMaps) InitNsMap() *services.NsMapStruct {
+	return &services.NsMapStruct{}
+}

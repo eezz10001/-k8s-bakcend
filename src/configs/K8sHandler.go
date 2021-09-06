@@ -17,3 +17,7 @@ func(this *K8sHandler) DepHandlers() *services.DepHandler {
 func(this *K8sHandler) PodHandlers() *services.PodHandler {
 	return &services.PodHandler{}
 }
+
+func (this *K8sHandler)NsHandlers() *services.NsHandler  {
+	return &services.NsHandler{}
+}
