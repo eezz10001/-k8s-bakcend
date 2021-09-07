@@ -1,7 +1,7 @@
 package configs
 
 import (
-	"k8s-bakcend/src/services"
+	"k8s-backend/src/services"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
@@ -10,9 +10,10 @@ import (
 )
 
 type K8sConfig struct {
-	DepHandler *services.DepHandler `inject:"-"`
-	PodHandler *services.PodHandler `inject:"-"`
-	NsHandler  *services.NsHandler  `inject:"-"`
+	DepHandler   *services.DepHandler   `inject:"-"`
+	PodHandler   *services.PodHandler   `inject:"-"`
+	NsHandler    *services.NsHandler    `inject:"-"`
+	EventHandler *services.EventHandler `inject:"-"`
 }
 
 func NewK8sConfig() *K8sConfig {
@@ -38,10 +39,11 @@ func (this *K8sConfig) InitInformer() informers.SharedInformerFactory {
 	podInformer := fact.Core().V1().Pods() //监听pod
 	podInformer.Informer().AddEventHandler(this.PodHandler)
 
-
-	nsInformer:=fact.Core().V1().Namespaces() //监听namespace
+	nsInformer := fact.Core().V1().Namespaces() //监听namespace
 	nsInformer.Informer().AddEventHandler(this.NsHandler)
 
+	eventInformer := fact.Core().V1().Events() //监听namespace
+	eventInformer.Informer().AddEventHandler(this.EventHandler)
 	fact.Start(wait.NeverStop)
 
 	return fact

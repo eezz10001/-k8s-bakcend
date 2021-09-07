@@ -1,7 +1,8 @@
 package services
 
 import (
-	"k8s-bakcend/src/wscore"
+	"fmt"
+	"k8s-backend/src/wscore"
 	"k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"log"
@@ -69,3 +70,27 @@ func(this *NsHandler)	OnDelete(obj interface{}){
 	}
 }
 
+
+// event 事件相关的handler
+type EventHandler struct {
+	EventMap *EventMapStruct  `inject:"-"`
+}
+func(this *EventHandler) storeData(obj interface{},isdelete bool){
+	if event,ok:=obj.(*corev1.Event);ok{
+		key:=fmt.Sprintf("%s_%s_%s",event.Namespace,event.InvolvedObject.Kind,event.InvolvedObject.Name)
+		if !isdelete{
+			this.EventMap.data.Store(key,event)
+		}else{
+			this.EventMap.data.Delete(key)
+		}
+	}
+}
+func(this *EventHandler) OnAdd(obj interface{}){
+	this.storeData(obj,false)
+}
+func(this *EventHandler) OnUpdate(oldObj, newObj interface{}){
+	this.storeData(newObj,false)
+}
+func(this *EventHandler) OnDelete(obj interface{}){
+	this.storeData(obj,true)
+}

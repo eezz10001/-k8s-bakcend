@@ -3,12 +3,12 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/shenyisyn/goft-gin/goft"
-	"k8s-bakcend/src/services"
+	"k8s-backend/src/services"
 	"k8s.io/client-go/kubernetes"
 )
 
 type DeploymentCtl struct {
-	K8sClinet *kubernetes.Clientset `inject:"-"`
+	K8sClinet  *kubernetes.Clientset       `inject:"-"`
 	DepService *services.DeploymentService `inject:"-"`
 }
 
@@ -25,6 +25,11 @@ func (this *DeploymentCtl) Build(goft *goft.Goft) {
 }
 
 func (this *DeploymentCtl) GetList(c *gin.Context) goft.Json {
-	ns := c.DefaultQuery("ns","default")
-	return  this.DepService.ListAll(ns)
+	ns := c.DefaultQuery("ns", "default")
+
+	return gin.H{
+		"code": 20000,
+		"data": this.DepService.ListAll(ns),
+	}
+
 }

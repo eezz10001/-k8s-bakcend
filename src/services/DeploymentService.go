@@ -2,7 +2,7 @@ package services
 
 import (
 	"github.com/shenyisyn/goft-gin/goft"
-	"k8s-bakcend/src/models"
+	"k8s-backend/src/models"
 	"k8s.io/api/apps/v1"
 )
 

@@ -1,7 +1,7 @@
 package configs
 
 import (
-	"k8s-bakcend/src/services"
+	"k8s-backend/src/services"
 )
 
 //注入 回调handler
@@ -20,4 +20,9 @@ func(this *K8sHandler) PodHandlers() *services.PodHandler {
 
 func (this *K8sHandler)NsHandlers() *services.NsHandler  {
 	return &services.NsHandler{}
+}
+
+// event handler
+func(this *K8sHandler) EventHandlers() *services.EventHandler{
+	return &services.EventHandler{}
 }

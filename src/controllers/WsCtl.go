@@ -3,7 +3,7 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/shenyisyn/goft-gin/goft"
-	"k8s-bakcend/src/wscore"
+	"k8s-backend/src/wscore"
 	"log"
 )
 

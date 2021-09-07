@@ -1,4 +1,4 @@
-module k8s-bakcend
+module k8s-backend
 
 go 1.16
 

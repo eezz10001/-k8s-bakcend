@@ -1,11 +1,12 @@
 package services
 
-import "k8s-bakcend/src/models"
+import "k8s-backend/src/models"
 
 //@Service
 type PodService struct {
 	PodMap *PodMapStruct `inject:"-"`
 	Common *CommonService `inject:"-"`
+	EventMap *EventMapStruct `inject:"-"`
 }
 
 func NewPodService() *PodService {
@@ -21,9 +22,9 @@ func(this *PodService) ListByNs(ns string ) interface{}{
 			Images:this.Common.GetImagesByPod(pod.Spec.Containers),
 			NodeName:pod.Spec.NodeName,
 			Phase:string(pod.Status.Phase),// 阶段
-			//IsReady:GetPodIsReady(*pod), //是否就绪
+			IsReady:this.Common.PodIsReady(pod), //是否就绪
 			IP:[]string{pod.Status.PodIP,pod.Status.HostIP},
-			//Message:core.EventMap.GetMessage(pod.Namespace,"Pod",pod.Name),
+			Message:this.EventMap.GetMessage(pod.Namespace,"Pod",pod.Name),
 			CreateTime:pod.CreationTimestamp.Format("2006-01-02 15:04:05"),
 		})
 	}

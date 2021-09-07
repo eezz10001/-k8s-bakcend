@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/shenyisyn/goft-gin/goft"
-	"k8s-bakcend/src/configs"
-	"k8s-bakcend/src/controllers"
+	"k8s-backend/src/configs"
+	"k8s-backend/src/controllers"
 	"net/http"
 )
 

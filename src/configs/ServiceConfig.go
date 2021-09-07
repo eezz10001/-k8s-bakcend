@@ -1,6 +1,6 @@
 package configs
 
-import "k8s-bakcend/src/services"
+import "k8s-backend/src/services"
 
 type ServiceConfig struct {
 }

@@ -3,7 +3,7 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/shenyisyn/goft-gin/goft"
-	"k8s-bakcend/src/services"
+	"k8s-backend/src/services"
 )
 
 type PodCtl struct {
